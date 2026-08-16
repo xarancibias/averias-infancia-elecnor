@@ -6,61 +6,70 @@
 <title>Infancia BAF — ELECNOR</title>
 <style>
   :root {
-    --surface: #EEF4F4;
+    --surface: #F2F4F8;
     --surface-card: #FFFFFF;
-    --surface-sunken: #E3ECEC;
-    --ink: #16262A;
-    --ink-muted: #55696D;
-    --ink-faint: #7C8E91;
-    --border: #D7E3E3;
-    --border-strong: #BDCFCF;
-    --accent: #0A9E96;
-    --accent-ink: #05625C;
-    --accent-soft: #DBEEEC;
+    --surface-sunken: #E7EAF1;
+    --ink: #10203A;
+    --ink-muted: #55647A;
+    --ink-faint: #8592A6;
+    --border: #DCE2EC;
+    --border-strong: #C3CCDC;
+    --brand-navy: #003A84;
+    --brand-navy-soft: #E7EEF9;
+    --brand-orange: #FF7A00;
+    --accent: #0A9E7A;
+    --accent-ink: #066352;
+    --accent-soft: #DCF0EA;
     --critical: #D14343;
     --critical-ink: #97281F;
     --critical-soft: #F8DEDE;
-    --track: #E3ECEC;
-    --shadow: 0 1px 2px rgba(20,40,42,0.06), 0 8px 24px -12px rgba(20,40,42,0.18);
+    --track: #E7EAF1;
+    --shadow: 0 1px 2px rgba(16,32,58,0.06), 0 8px 24px -12px rgba(16,32,58,0.18);
     --radius: 10px;
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --surface: #0E1517;
-      --surface-card: #16201F;
-      --surface-sunken: #101919;
-      --ink: #E7EFEE;
-      --ink-muted: #93A8AB;
-      --ink-faint: #6C8285;
-      --border: #223131;
-      --border-strong: #2C3F3F;
-      --accent: #25A99F;
-      --accent-ink: #6FDCD1;
-      --accent-soft: #163330;
+      --surface: #0B1220;
+      --surface-card: #121B2E;
+      --surface-sunken: #0E1626;
+      --ink: #E8ECF4;
+      --ink-muted: #92A0B8;
+      --ink-faint: #66748C;
+      --border: #202B42;
+      --border-strong: #2A374F;
+      --brand-navy: #5B9CF0;
+      --brand-navy-soft: #16233B;
+      --brand-orange: #FF9640;
+      --accent: #22A382;
+      --accent-ink: #6FE0BD;
+      --accent-soft: #123328;
       --critical: #E4675F;
       --critical-ink: #F5A29C;
       --critical-soft: #3A2220;
-      --track: #1B2626;
+      --track: #182236;
       --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px -14px rgba(0,0,0,0.55);
     }
   }
   :root[data-theme="dark"] {
-    --surface: #0E1517;
-    --surface-card: #16201F;
-    --surface-sunken: #101919;
-    --ink: #E7EFEE;
-    --ink-muted: #93A8AB;
-    --ink-faint: #6C8285;
-    --border: #223131;
-    --border-strong: #2C3F3F;
-    --accent: #25A99F;
-    --accent-ink: #6FDCD1;
-    --accent-soft: #163330;
+    --surface: #0B1220;
+    --surface-card: #121B2E;
+    --surface-sunken: #0E1626;
+    --ink: #E8ECF4;
+    --ink-muted: #92A0B8;
+    --ink-faint: #66748C;
+    --border: #202B42;
+    --border-strong: #2A374F;
+    --brand-navy: #5B9CF0;
+    --brand-navy-soft: #16233B;
+    --brand-orange: #FF9640;
+    --accent: #22A382;
+    --accent-ink: #6FE0BD;
+    --accent-soft: #123328;
     --critical: #E4675F;
     --critical-ink: #F5A29C;
     --critical-soft: #3A2220;
-    --track: #1B2626;
+    --track: #182236;
     --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px -14px rgba(0,0,0,0.55);
   }
 
@@ -73,6 +82,11 @@
     font-family: "Segoe UI", "Calibri", "Helvetica Neue", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     line-height: 1.45;
+  }
+
+  .brand-bar {
+    height: 5px;
+    background: linear-gradient(90deg, var(--brand-navy) 0%, var(--brand-navy) 60%, var(--brand-orange) 100%);
   }
 
   .page {
@@ -132,7 +146,7 @@
     font-size: 12px;
     letter-spacing: 0.09em;
     text-transform: uppercase;
-    color: var(--accent-ink);
+    color: var(--brand-navy);
     margin: 0 0 8px;
   }
   .header h1 {
@@ -216,6 +230,23 @@
     max-width: 62ch;
   }
 
+  /* ---------- Banner ejecutivo (veredicto) ---------- */
+  .card-hero {
+    border-top: 4px solid var(--brand-navy);
+    background:
+      linear-gradient(180deg, var(--brand-navy-soft) 0%, var(--surface-card) 190px);
+    padding-top: 22px;
+  }
+  .exec-eyebrow {
+    font-family: "Cascadia Mono", "Consolas", ui-monospace, monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--brand-navy);
+    margin: 0 0 6px;
+  }
+
   /* ---------- Bullet / hero comparison ---------- */
   .bullet-wrap {
     display: grid;
@@ -232,8 +263,8 @@
   }
   .hero-figure .headline {
     font-family: "Cascadia Mono", "Consolas", ui-monospace, monospace;
-    font-size: 58px;
-    font-weight: 600;
+    font-size: clamp(52px, 6vw, 72px);
+    font-weight: 700;
     line-height: 1;
     color: var(--critical-ink);
     letter-spacing: -0.02em;
@@ -354,6 +385,7 @@
   }
   .hbar-fill.accent { background: var(--accent); }
   .hbar-fill.critical { background: var(--critical); }
+  .hbar-fill.neutral { background: var(--brand-navy); }
   .hbar-fill:hover { filter: brightness(1.08); }
   .hbar-value {
     position: absolute;
@@ -457,6 +489,7 @@
 </head>
 <body>
 
+<div class="brand-bar"></div>
 <div class="page">
 
   <div class="header">
@@ -464,7 +497,7 @@
       <div class="logo-badge"><img src="elecnor-logo.png" alt="Elecnor"></div>
       <div>
         <p class="eyebrow">Panel de calidad · Instalaciones FO</p>
-        <h1>Averías en infancia — ELECNOR</h1>
+        <h1>Averías en infancia</h1>
         <p class="subtitle" id="txtSubtitle"></p>
       </div>
     </div>
@@ -472,6 +505,23 @@
       <span id="txtFuente"></span><br>
       <span id="txtUniverso"></span><br>
       Meta corporativa: <b style="color:var(--ink)" id="txtMetaHeader"></b>
+    </div>
+  </div>
+
+  <div class="card card-hero">
+    <p class="exec-eyebrow">Veredicto del período</p>
+    <div class="card-head">
+      <h2>Tasa global vs. meta</h2>
+      <span class="card-note" id="txtProductoNote"></span>
+    </div>
+    <p class="card-desc" id="txtBulletDesc"></p>
+    <div class="bullet-wrap">
+      <div class="hero-figure">
+        <span class="status-pill" id="heroPill"></span>
+        <span class="headline" id="heroHeadline"></span>
+        <span class="gap-note" id="heroGapNote"></span>
+      </div>
+      <div class="bullet-chart" id="bulletChart"></div>
     </div>
   </div>
 
@@ -500,22 +550,6 @@
       <span class="label">Días medios a la avería</span>
       <span class="value accent" id="kpiDias"></span>
       <span class="sub" id="kpiDiasSub"></span>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-head">
-      <h2>Tasa global vs. meta</h2>
-      <span class="card-note" id="txtProductoNote"></span>
-    </div>
-    <p class="card-desc" id="txtBulletDesc"></p>
-    <div class="bullet-wrap">
-      <div class="hero-figure">
-        <span class="status-pill" id="heroPill"></span>
-        <span class="headline" id="heroHeadline"></span>
-        <span class="gap-note" id="heroGapNote"></span>
-      </div>
-      <div class="bullet-chart" id="bulletChart"></div>
     </div>
   </div>
 
@@ -941,7 +975,7 @@
 
     el.innerHTML = data.map((d, i) => {
       const w = Math.max((d.value / max) * 100, 0.6);
-      let cls = 'accent';
+      let cls = opts.colorBy === 'neutral' ? 'neutral' : 'accent';
       if (opts.colorBy === 'meta') cls = d.value > REPORT.meta ? 'critical' : 'accent';
       const labelInside = w > 22;
       const valueText = opts.valueFormat ? opts.valueFormat(d) : fmtPct(d.value);
@@ -1002,7 +1036,7 @@
   renderHBar('causasChart', REPORT.causas, {
     max: maxOf(REPORT.causas, 'value') * 1.15,
     showMeta: false,
-    colorBy: 'fixed',
+    colorBy: 'neutral',
     valueFormat: d => d.value + ' casos · ' + d.pct.toLocaleString('es-CL') + ' %',
     tooltipSub: d => d.pct.toLocaleString('es-CL') + ' % de los ' + REPORT.infancia + ' casos de infancia'
   });
