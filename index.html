@@ -107,6 +107,26 @@
     border-bottom: 1px solid var(--border);
     padding-bottom: 22px;
   }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .logo-badge {
+    flex: none;
+    background: #FFFFFF;
+    border-radius: 8px;
+    padding: 9px 16px;
+    display: flex;
+    align-items: center;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+  .logo-badge img {
+    height: 30px;
+    width: auto;
+    display: block;
+  }
   .header .eyebrow {
     font-family: "Cascadia Mono", "Consolas", ui-monospace, monospace;
     font-size: 12px;
@@ -440,10 +460,13 @@
 <div class="page">
 
   <div class="header">
-    <div>
-      <p class="eyebrow">Panel de calidad · Instalaciones FO</p>
-      <h1>Averías en infancia — ELECNOR</h1>
-      <p class="subtitle" id="txtSubtitle"></p>
+    <div class="header-left">
+      <div class="logo-badge"><img src="elecnor-logo.png" alt="Elecnor"></div>
+      <div>
+        <p class="eyebrow">Panel de calidad · Instalaciones FO</p>
+        <h1>Averías en infancia — ELECNOR</h1>
+        <p class="subtitle" id="txtSubtitle"></p>
+      </div>
     </div>
     <div class="meta-info">
       <span id="txtFuente"></span><br>
