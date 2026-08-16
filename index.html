@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Infancia BAF Agosto 2026</title>
+<title>Infancia BAF — ELECNOR</title>
 <style>
   :root {
     --surface: #EEF4F4;
@@ -218,6 +218,7 @@
     color: var(--critical-ink);
     letter-spacing: -0.02em;
   }
+  .hero-figure .headline.accent { color: var(--accent-ink); }
   .hero-figure .headline small {
     font-size: 24px;
     font-weight: 500;
@@ -244,6 +245,8 @@
     background: var(--critical);
     flex: none;
   }
+  .status-pill.accent { background: var(--accent-soft); color: var(--accent-ink); }
+  .status-pill.accent::before { background: var(--accent); }
   .hero-figure .gap-note {
     font-size: 13px;
     color: var(--ink-muted);
@@ -440,54 +443,54 @@
     <div>
       <p class="eyebrow">Panel de calidad · Instalaciones FO</p>
       <h1>Averías en infancia — ELECNOR</h1>
-      <p class="subtitle">Reincidencias sobre instalaciones activadas · Agosto 2026 (órdenes de julio 2026)</p>
+      <p class="subtitle" id="txtSubtitle"></p>
     </div>
     <div class="meta-info">
-      Fuente: p22-Averias-infancia_1_ELECNOR_2026-08<br>
-      Universo: 3.491 instalaciones completadas<br>
-      Meta corporativa: <b style="color:var(--ink)">≤ 1,50&nbsp;%</b>
+      <span id="txtFuente"></span><br>
+      <span id="txtUniverso"></span><br>
+      Meta corporativa: <b style="color:var(--ink)" id="txtMetaHeader"></b>
     </div>
   </div>
 
   <div class="kpi-row">
     <div class="kpi">
       <span class="label">Tasa global</span>
-      <span class="value critical">1,66&nbsp;%</span>
-      <span class="sub">vs. meta 1,50&nbsp;%</span>
+      <span class="value" id="kpiTasaGlobal"></span>
+      <span class="sub" id="kpiTasaGlobalSub"></span>
     </div>
     <div class="kpi">
       <span class="label">Brecha vs. meta</span>
-      <span class="value critical">+0,16&nbsp;p.p.</span>
-      <span class="sub">11&nbsp;% por sobre el límite</span>
+      <span class="value" id="kpiBrecha"></span>
+      <span class="sub" id="kpiBrechaSub"></span>
     </div>
     <div class="kpi">
       <span class="label">Averías en infancia</span>
-      <span class="value">58</span>
-      <span class="sub">de 3.491 instalaciones</span>
+      <span class="value" id="kpiAverias"></span>
+      <span class="sub" id="kpiAveriasSub"></span>
     </div>
     <div class="kpi">
       <span class="label">Técnicos sobre meta</span>
-      <span class="value critical">16 / 67</span>
+      <span class="value" id="kpiTecnicos"></span>
       <span class="sub">con 20+ instalaciones</span>
     </div>
     <div class="kpi">
       <span class="label">Días medios a la avería</span>
-      <span class="value accent">10,3</span>
-      <span class="sub">mediana 9 días</span>
+      <span class="value accent" id="kpiDias"></span>
+      <span class="sub" id="kpiDiasSub"></span>
     </div>
   </div>
 
   <div class="card">
     <div class="card-head">
       <h2>Tasa global vs. meta</h2>
-      <span class="card-note">100&nbsp;% de las averías ocurren en producto BAF</span>
+      <span class="card-note" id="txtProductoNote"></span>
     </div>
-    <p class="card-desc">La tasa de infancia del mes se ubica 0,16 puntos porcentuales sobre el límite corporativo de 1,50&nbsp;%. Es la variable que este panel monitorea mes a mes.</p>
+    <p class="card-desc" id="txtBulletDesc"></p>
     <div class="bullet-wrap">
       <div class="hero-figure">
-        <span class="status-pill">Sobre meta</span>
-        <span class="headline">1,66<small>%</small></span>
-        <span class="gap-note">Meta: <b>1,50&nbsp;%</b> · Brecha: <b>+0,16&nbsp;p.p.</b> (39 casos habrían estado dentro de meta; hoy son 58)</span>
+        <span class="status-pill" id="heroPill"></span>
+        <span class="headline" id="heroHeadline"></span>
+        <span class="gap-note" id="heroGapNote"></span>
       </div>
       <div class="bullet-chart" id="bulletChart"></div>
     </div>
@@ -498,12 +501,12 @@
       <div class="card-head">
         <h2>Tasa por producto</h2>
       </div>
-      <p class="card-desc">Solo BAF (banda ancha fija) supera la meta; TVD y STB no registran averías de infancia en el mes.</p>
+      <p class="card-desc" id="txtProductoDesc"></p>
       <div class="hbar-chart with-meta" id="productoChart"></div>
       <div class="hbar-legend-note">
         <span class="sw"><span class="dot critical"></span>Sobre meta</span>
         <span class="sw"><span class="dot accent"></span>Bajo meta</span>
-        <span class="sw"><span class="dot line"></span>Meta 1,50&nbsp;%</span>
+        <span class="sw"><span class="dot line"></span><span id="txtLegendMeta"></span></span>
       </div>
     </div>
 
@@ -511,7 +514,7 @@
       <div class="card-head">
         <h2>Causas de la avería</h2>
       </div>
-      <p class="card-desc">Sobre los 58 casos de infancia, normalizado por tipo de falla reportada en Remedy.</p>
+      <p class="card-desc" id="txtCausasDesc"></p>
       <div class="hbar-chart" id="causasChart"></div>
     </div>
   </div>
@@ -521,12 +524,12 @@
       <h2>Tasa de infancia por técnico instalador</h2>
       <span class="card-note">Técnicos con 20+ instalaciones en el mes · ordenado de mayor a menor</span>
     </div>
-    <p class="card-desc">16 de 67 técnicos activos superan la meta de 1,50&nbsp;%. Los cinco primeros concentran patrones de reincidencia 3 a 6 veces por sobre el promedio global.</p>
+    <p class="card-desc" id="txtTecnicosDesc"></p>
     <div class="hbar-chart with-meta" id="tecnicosChart"></div>
     <div class="hbar-legend-note">
       <span class="sw"><span class="dot critical"></span>Sobre meta</span>
       <span class="sw"><span class="dot accent"></span>Bajo meta</span>
-      <span class="sw"><span class="dot line"></span>Meta 1,50&nbsp;%</span>
+      <span class="sw"><span class="dot line"></span><span id="txtLegendMeta2"></span></span>
     </div>
   </div>
 
@@ -552,7 +555,7 @@
     <div class="cols">
       <dl>
         <dt>Alcance</dt>
-        <dd>Instalaciones FO completadas por ELECNOR, órdenes creadas en julio de 2026 (partición 01-08-2026).</dd>
+        <dd id="txtAlcance"></dd>
       </dl>
       <dl>
         <dt>Definición de infancia</dt>
@@ -560,10 +563,10 @@
       </dl>
       <dl>
         <dt>Meta</dt>
-        <dd>Tasa de infancia corporativa ≤ 1,50&nbsp;% del total de instalaciones del período.</dd>
+        <dd id="txtMetaFooter"></dd>
       </dl>
     </div>
-    <div>Generado a partir de p22-Averias-infancia_1_ELECNOR_2026-08.csv.xlsx</div>
+    <div id="txtGenerado"></div>
   </div>
 
 </div>
@@ -571,47 +574,214 @@
 <div class="tooltip" id="tooltip"></div>
 
 <script>
-  const META = 1.50;
-
-  const producto = [
-    { name: "BAF", sub: "2.466 instalaciones", value: 2.35, count: 58 },
-    { name: "TVD", sub: "1.001 instalaciones", value: 0.00, count: 0 },
-    { name: "STB", sub: "24 instalaciones", value: 0.00, count: 0 },
-  ];
-
-  const causas = [
-    { name: "Cable interior / roseta óptica", value: 16, pct: 27.6 },
-    { name: "Módem dañado", value: 14, pct: 24.1 },
-    { name: "No navega", value: 11, pct: 19.0 },
-    { name: "Despacho técnico · bot WhatsApp", value: 10, pct: 17.2 },
-    { name: "Despacho técnico · Mi Movistar", value: 5, pct: 8.6 },
-    { name: "Lentitud general", value: 1, pct: 1.7 },
-    { name: "Atención repetidor en terreno", value: 1, pct: 1.7 },
-  ];
-
-  const tecnicos = [
-    { name: "Bryan Hinojosa Cárdenas", sub: "21 instalaciones", value: 9.52, count: 2 },
-    { name: "Franco Díaz Núñez", sub: "48 instalaciones", value: 8.33, count: 4 },
-    { name: "Richards Cruz Cuevas", sub: "44 instalaciones", value: 6.82, count: 3 },
-    { name: "Héctor Ortiz Márquez", sub: "44 instalaciones", value: 6.82, count: 3 },
-    { name: "Alejandro Para Gómez", sub: "77 instalaciones", value: 6.49, count: 5 },
-    { name: "Jonathan Henríquez Venegas", sub: "57 instalaciones", value: 5.26, count: 3 },
-    { name: "Fernando Holm Morales", sub: "78 instalaciones", value: 5.13, count: 4 },
-    { name: "Cristian Serrano Vellagas", sub: "60 instalaciones", value: 5.00, count: 3 },
-    { name: "Marco Vega Vega", sub: "48 instalaciones", value: 4.17, count: 2 },
-    { name: "Augusto Fuentes Tapia", sub: "59 instalaciones", value: 3.39, count: 2 },
-    { name: "Henry Díaz Torrijo", sub: "59 instalaciones", value: 3.39, count: 2 },
-    { name: "Alejandro Cisternas Marín", sub: "61 instalaciones", value: 3.28, count: 2 },
-  ];
-
-  const segmento = [
-    { name: "Tradicional", total: 3278, infancia: 54, tasa: 1.65 },
-    { name: "Grandes", total: 129, infancia: 2, tasa: 1.55 },
-    { name: "Micro", total: 53, infancia: 2, tasa: 3.77 },
-    { name: "Autónomas", total: 15, infancia: 0, tasa: 0.00 },
-    { name: "Pequeñas", total: 9, infancia: 0, tasa: 0.00 },
-    { name: "Medianas", total: 7, infancia: 0, tasa: 0.00 },
-  ];
+  /* =========================================================
+     BLOQUE DE DATOS — regenerado automáticamente por
+     actualizar_reporte.ps1 en cada corrida del .bat.
+     No editar a mano entre estos marcadores.
+  ========================================================= */
+  // DATA_START
+  const REPORT = {
+    "fuente":  "p22-Averias-infancia_1_ELECNOR_2026-08",
+    "periodo":  "Agosto 2026",
+    "ordenesPeriodo":  "agosto 2026",
+    "particion":  "8/1/2026",
+    "meta":  1.5,
+    "total":  3491,
+    "infancia":  58,
+    "tasaGlobal":  1.66,
+    "diasProm":  10.3,
+    "diasMediana":  9,
+    "tecnicosTotal":  54,
+    "tecnicosSobreMeta":  16,
+    "producto":  [
+                     {
+                         "name":  "STB",
+                         "sub":  "24 instalaciones",
+                         "value":  0,
+                         "count":  0
+                     },
+                     {
+                         "name":  "TVD",
+                         "sub":  "1.001 instalaciones",
+                         "value":  0,
+                         "count":  0
+                     },
+                     {
+                         "name":  "BAF",
+                         "sub":  "2.466 instalaciones",
+                         "value":  2.35,
+                         "count":  58
+                     }
+                 ],
+    "causas":  [
+                   {
+                       "name":  "BA-CABLE INT/ ROSETA OPTICA",
+                       "value":  16,
+                       "pct":  27.6
+                   },
+                   {
+                       "name":  "BA-MODEM DANADO",
+                       "value":  14,
+                       "pct":  24.1
+                   },
+                   {
+                       "name":  "BA-NO NAVEGA",
+                       "value":  11,
+                       "pct":  19
+                   },
+                   {
+                       "name":  "DESPACHO TEC REQUERIDO BOT WHATSAPP",
+                       "value":  10,
+                       "pct":  17.2
+                   },
+                   {
+                       "name":  "DESPACHO TEC REQUERIDO MI MOVISTAR",
+                       "value":  5,
+                       "pct":  8.6
+                   },
+                   {
+                       "name":  "BA-LENTITUD GENERAL",
+                       "value":  1,
+                       "pct":  1.7
+                   },
+                   {
+                       "name":  "ATENCION REPETIDOR TERRENO",
+                       "value":  1,
+                       "pct":  1.7
+                   }
+               ],
+    "tecnicos":  [
+                     {
+                         "name":  "Bryan Antonio Hinojosa Cardenas",
+                         "sub":  "21 instalaciones",
+                         "value":  9.52,
+                         "count":  2
+                     },
+                     {
+                         "name":  "Franco Josue Diaz Nunez",
+                         "sub":  "48 instalaciones",
+                         "value":  8.33,
+                         "count":  4
+                     },
+                     {
+                         "name":  "Hector Jose Ortiz Marquez",
+                         "sub":  "44 instalaciones",
+                         "value":  6.82,
+                         "count":  3
+                     },
+                     {
+                         "name":  "Richards Antonio Cruz Cuevas",
+                         "sub":  "44 instalaciones",
+                         "value":  6.82,
+                         "count":  3
+                     },
+                     {
+                         "name":  "Alejandro Nicolas Para Gomez",
+                         "sub":  "77 instalaciones",
+                         "value":  6.49,
+                         "count":  5
+                     },
+                     {
+                         "name":  "Jonathan Ricardo Henriquez Venegas",
+                         "sub":  "57 instalaciones",
+                         "value":  5.26,
+                         "count":  3
+                     },
+                     {
+                         "name":  "Fernando Alexis Holm Morales",
+                         "sub":  "78 instalaciones",
+                         "value":  5.13,
+                         "count":  4
+                     },
+                     {
+                         "name":  "Cristian Nicolas Serrano Vellagas",
+                         "sub":  "60 instalaciones",
+                         "value":  5,
+                         "count":  3
+                     },
+                     {
+                         "name":  "Marco Manuel Vega Vega",
+                         "sub":  "48 instalaciones",
+                         "value":  4.17,
+                         "count":  2
+                     },
+                     {
+                         "name":  "Henry Muriel Diaz Torrijo",
+                         "sub":  "59 instalaciones",
+                         "value":  3.39,
+                         "count":  2
+                     },
+                     {
+                         "name":  "Augusto Andres Fuentes Tapia",
+                         "sub":  "59 instalaciones",
+                         "value":  3.39,
+                         "count":  2
+                     },
+                     {
+                         "name":  "Alejandro Sebastian Cisternas Marin",
+                         "sub":  "61 instalaciones",
+                         "value":  3.28,
+                         "count":  2
+                     },
+                     {
+                         "name":  "Nestor Fabian Pasten Alarcon",
+                         "sub":  "63 instalaciones",
+                         "value":  3.17,
+                         "count":  2
+                     },
+                     {
+                         "name":  "Bastian Ignacio Rios Madrid",
+                         "sub":  "68 instalaciones",
+                         "value":  2.94,
+                         "count":  2
+                     },
+                     {
+                         "name":  "Jair Jesus Valencia Diaz",
+                         "sub":  "76 instalaciones",
+                         "value":  2.63,
+                         "count":  2
+                     }
+                 ],
+    "segmento":  [
+                     {
+                         "name":  "TRADICIONAL",
+                         "total":  3278,
+                         "infancia":  54,
+                         "tasa":  1.65
+                     },
+                     {
+                         "name":  "GRANDES",
+                         "total":  129,
+                         "infancia":  2,
+                         "tasa":  1.55
+                     },
+                     {
+                         "name":  "MICRO",
+                         "total":  53,
+                         "infancia":  2,
+                         "tasa":  3.77
+                     },
+                     {
+                         "name":  "AUTONOMAS",
+                         "total":  15,
+                         "infancia":  0,
+                         "tasa":  0
+                     },
+                     {
+                         "name":  "PEQUENAS",
+                         "total":  9,
+                         "infancia":  0,
+                         "tasa":  0
+                     },
+                     {
+                         "name":  "MEDIANAS",
+                         "total":  7,
+                         "infancia":  0,
+                         "tasa":  0
+                     }
+                 ]
+};
+  // DATA_END
 
   const tooltip = document.getElementById('tooltip');
   function showTip(el, title, sub) {
@@ -627,30 +797,116 @@
   function hideTip() { tooltip.classList.remove('visible'); }
 
   function fmtPct(v) {
-    return v.toLocaleString('es-CL', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' %';
+    return v.toLocaleString('es-CL', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' %';
+  }
+  function fmtInt(v) {
+    return v.toLocaleString('es-CL');
   }
 
-  // ---- Bullet chart (single row: tasa global vs meta) ----
+  // ---- Texto dinámico (header, hero, KPIs, descripciones) ----
+  function renderTexts() {
+    const R = REPORT;
+    const meta = R.meta;
+    const over = R.tasaGlobal > meta;
+    const statusCls = over ? 'critical' : 'accent';
+    const brecha = R.tasaGlobal - meta;
+    const brechaAbs = Math.abs(brecha);
+    const casosPermitidos = Math.floor(R.total * meta / 100);
+    const exceso = Math.max(0, R.infancia - casosPermitidos);
+
+    document.title = 'Infancia BAF ' + R.periodo;
+    document.getElementById('txtSubtitle').textContent =
+      'Reincidencias sobre instalaciones activadas · ' + R.periodo + ' (órdenes de ' + R.ordenesPeriodo + ')';
+    document.getElementById('txtFuente').textContent = 'Fuente: ' + R.fuente;
+    document.getElementById('txtUniverso').textContent = 'Universo: ' + fmtInt(R.total) + ' instalaciones completadas';
+    document.getElementById('txtMetaHeader').textContent = '≤ ' + fmtPct(meta);
+
+    const kpiTasa = document.getElementById('kpiTasaGlobal');
+    kpiTasa.textContent = fmtPct(R.tasaGlobal);
+    kpiTasa.className = 'value ' + statusCls;
+    document.getElementById('kpiTasaGlobalSub').textContent = 'vs. meta ' + fmtPct(meta);
+
+    const kpiBrecha = document.getElementById('kpiBrecha');
+    kpiBrecha.textContent = (brecha >= 0 ? '+' : '−') + brechaAbs.toLocaleString('es-CL', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' p.p.';
+    kpiBrecha.className = 'value ' + statusCls;
+    document.getElementById('kpiBrechaSub').textContent =
+      (meta > 0 ? Math.round(brechaAbs / meta * 100) : 0) + ' % ' + (over ? 'por sobre el límite' : 'bajo el límite');
+
+    document.getElementById('kpiAverias').textContent = fmtInt(R.infancia);
+    document.getElementById('kpiAveriasSub').textContent = 'de ' + fmtInt(R.total) + ' instalaciones';
+
+    const kpiTec = document.getElementById('kpiTecnicos');
+    kpiTec.textContent = R.tecnicosSobreMeta + ' / ' + R.tecnicosTotal;
+    kpiTec.className = 'value ' + (R.tecnicosSobreMeta > 0 ? 'critical' : 'accent');
+
+    document.getElementById('kpiDias').textContent = R.diasProm.toLocaleString('es-CL', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    document.getElementById('kpiDiasSub').textContent = 'mediana ' + R.diasMediana + ' días';
+
+    const pill = document.getElementById('heroPill');
+    pill.textContent = over ? 'Sobre meta' : 'Bajo meta';
+    pill.className = 'status-pill ' + statusCls;
+
+    const headline = document.getElementById('heroHeadline');
+    headline.className = 'headline ' + statusCls;
+    headline.innerHTML = R.tasaGlobal.toLocaleString('es-CL', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '<small>%</small>';
+
+    document.getElementById('heroGapNote').innerHTML =
+      'Meta: <b>' + fmtPct(meta) + '</b> · Brecha: <b>' + (brecha >= 0 ? '+' : '−') + brechaAbs.toLocaleString('es-CL', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' p.p.</b> · ' +
+      'la meta permite hasta <b>' + casosPermitidos + '</b> casos; hubo <b>' + R.infancia + '</b>' +
+      (exceso > 0 ? ' (<b>+' + exceso + '</b> sobre lo permitido)' : ' (dentro de meta)') + '.';
+
+    document.getElementById('txtBulletDesc').textContent =
+      'La tasa de infancia del período se ubica ' + brechaAbs.toLocaleString('es-CL', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) +
+      ' puntos porcentuales ' + (over ? 'sobre' : 'bajo') + ' el límite corporativo de ' + fmtPct(meta) + '. Es la variable que este panel monitorea cada período.';
+
+    const conCasos = R.producto.filter(p => p.count > 0).map(p => p.name);
+    const sinCasos = R.producto.filter(p => p.count === 0).map(p => p.name);
+    document.getElementById('txtProductoNote').textContent =
+      conCasos.length === 1 ? '100 % de las averías ocurren en producto ' + conCasos[0]
+      : conCasos.length === 0 ? 'Sin averías de infancia en el período'
+      : 'Averías concentradas en: ' + conCasos.join(', ');
+    document.getElementById('txtProductoDesc').textContent =
+      'Sobre meta: ' + (R.producto.filter(p => p.value > meta).map(p => p.name).join(', ') || 'ninguno') + '. ' +
+      'Sin averías de infancia: ' + (sinCasos.join(', ') || '—') + '.';
+
+    document.getElementById('txtCausasDesc').textContent =
+      'Sobre los ' + R.infancia + ' casos de infancia, normalizado por tipo de falla reportada en Remedy.';
+
+    const top1 = R.tecnicos[0];
+    const ratio = top1 && R.tasaGlobal > 0 ? (top1.value / R.tasaGlobal) : 0;
+    document.getElementById('txtTecnicosDesc').textContent =
+      R.tecnicosSobreMeta + ' de ' + R.tecnicosTotal + ' técnicos activos (con 20+ instalaciones) superan la meta de ' + fmtPct(meta) + '.' +
+      (top1 ? ' El técnico con mayor tasa (' + top1.name + ') registra ' + ratio.toLocaleString('es-CL', { maximumFractionDigits: 1 }) + '× la tasa global.' : '');
+
+    document.getElementById('txtLegendMeta').textContent = 'Meta ' + fmtPct(meta);
+    document.getElementById('txtLegendMeta2').textContent = 'Meta ' + fmtPct(meta);
+
+    document.getElementById('txtAlcance').textContent =
+      'Instalaciones FO completadas por ELECNOR, órdenes creadas en ' + R.ordenesPeriodo + ' (partición ' + R.particion + ').';
+    document.getElementById('txtMetaFooter').textContent =
+      'Tasa de infancia corporativa ≤ ' + fmtPct(meta) + ' del total de instalaciones del período.';
+    document.getElementById('txtGenerado').textContent = 'Generado a partir de ' + R.fuente + '.csv.xlsx';
+  }
+
+  // ---- Bullet chart (tasa global vs meta) ----
   function renderBulletChart() {
     const el = document.getElementById('bulletChart');
-    const max = 2.2;
-    const rows = [
-      { label: 'Tasa global observada', value: 1.66, cls: 'critical' },
-    ];
-    el.innerHTML = rows.map(r => {
-      const w = (r.value / max) * 100;
-      const metaPos = (META / max) * 100;
-      return `
-        <div class="bullet-row">
-          <div class="row-label"><span class="name">${r.label}</span><span class="mono">${fmtPct(r.value)}</span></div>
-          <div class="bullet-track">
-            <div class="bullet-fill ${r.cls}" style="width:${w}%"></div>
-            <div class="meta-marker" style="left:${metaPos}%">
-              <span class="tick-label">Meta ${fmtPct(META)}</span>
-            </div>
+    const meta = REPORT.meta;
+    const value = REPORT.tasaGlobal;
+    const max = Math.max(value, meta) * 1.35;
+    const cls = value > meta ? 'critical' : 'accent';
+    const w = (value / max) * 100;
+    const metaPos = (meta / max) * 100;
+    el.innerHTML = `
+      <div class="bullet-row">
+        <div class="row-label"><span class="name">Tasa global observada</span><span class="mono">${fmtPct(value)}</span></div>
+        <div class="bullet-track">
+          <div class="bullet-fill ${cls}" style="width:${w}%"></div>
+          <div class="meta-marker" style="left:${metaPos}%">
+            <span class="tick-label">Meta ${fmtPct(meta)}</span>
           </div>
-        </div>`;
-    }).join('');
+        </div>
+      </div>`;
   }
 
   // ---- Generic horizontal bar chart ----
@@ -658,12 +914,12 @@
     const el = document.getElementById(containerId);
     const max = opts.max;
     const withMeta = !!opts.showMeta;
-    const metaPos = withMeta ? (META / max) * 100 : null;
+    const metaPos = withMeta ? (REPORT.meta / max) * 100 : null;
 
     el.innerHTML = data.map((d, i) => {
       const w = Math.max((d.value / max) * 100, 0.6);
       let cls = 'accent';
-      if (opts.colorBy === 'meta') cls = d.value > META ? 'critical' : 'accent';
+      if (opts.colorBy === 'meta') cls = d.value > REPORT.meta ? 'critical' : 'accent';
       const labelInside = w > 22;
       const valueText = opts.valueFormat ? opts.valueFormat(d) : fmtPct(d.value);
       return `
@@ -689,48 +945,53 @@
     });
   }
 
-  renderBulletChart();
-
-  renderHBar('productoChart', producto, {
-    max: 3,
-    showMeta: true,
-    colorBy: 'meta',
-    tooltipSub: d => d.count + ' averías de infancia'
-  });
-
-  renderHBar('causasChart', causas, {
-    max: 18,
-    showMeta: false,
-    colorBy: 'fixed',
-    valueFormat: d => d.value + ' casos · ' + d.pct.toLocaleString('es-CL') + ' %',
-    tooltipSub: d => d.pct.toLocaleString('es-CL') + ' % de los 58 casos de infancia'
-  });
-
-  renderHBar('tecnicosChart', tecnicos, {
-    max: 10.5,
-    showMeta: true,
-    colorBy: 'meta',
-    tooltipSub: d => d.count + ' averías sobre ' + d.sub
-  });
-
   // ---- Segmento table ----
-  (function renderSegmentoTable() {
+  function renderSegmentoTable() {
     const tbody = document.getElementById('segmentoTable');
-    tbody.innerHTML = segmento.map(s => {
-      const over = s.tasa > META;
+    tbody.innerHTML = REPORT.segmento.map(s => {
+      const over = s.tasa > REPORT.meta;
       const chip = s.infancia === 0
         ? '<span class="status-chip accent">Sin casos</span>'
         : (over ? '<span class="status-chip critical">Sobre meta</span>' : '<span class="status-chip accent">Bajo meta</span>');
       return `
         <tr>
           <td class="name">${s.name}</td>
-          <td class="num">${s.total.toLocaleString('es-CL')}</td>
+          <td class="num">${fmtInt(s.total)}</td>
           <td class="num">${s.infancia}</td>
           <td class="num">${fmtPct(s.tasa)}</td>
           <td>${chip}</td>
         </tr>`;
     }).join('');
-  })();
+  }
+
+  function maxOf(arr, key) { return arr.reduce((m, d) => Math.max(m, d[key]), 0); }
+
+  renderTexts();
+  renderBulletChart();
+
+  renderHBar('productoChart', REPORT.producto, {
+    max: Math.max(maxOf(REPORT.producto, 'value'), REPORT.meta) * 1.3,
+    showMeta: true,
+    colorBy: 'meta',
+    tooltipSub: d => d.count + ' averías de infancia'
+  });
+
+  renderHBar('causasChart', REPORT.causas, {
+    max: maxOf(REPORT.causas, 'value') * 1.15,
+    showMeta: false,
+    colorBy: 'fixed',
+    valueFormat: d => d.value + ' casos · ' + d.pct.toLocaleString('es-CL') + ' %',
+    tooltipSub: d => d.pct.toLocaleString('es-CL') + ' % de los ' + REPORT.infancia + ' casos de infancia'
+  });
+
+  renderHBar('tecnicosChart', REPORT.tecnicos, {
+    max: Math.max(maxOf(REPORT.tecnicos, 'value'), REPORT.meta) * 1.15,
+    showMeta: true,
+    colorBy: 'meta',
+    tooltipSub: d => d.count + ' averías sobre ' + d.sub
+  });
+
+  renderSegmentoTable();
 </script>
 </body>
 </html>
